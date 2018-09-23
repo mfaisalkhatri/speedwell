@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 public interface Selectors {
 	public void fillField(WebElement parent, By locator, String value, int wait);
 
-	public void getFieldValue(WebElement parent, By locator, int wait);
+	public void getAndCheckFieldValue(WebElement parent, By locator, String expValue, int wait);
 
 	public void selectField(WebElement parent, By locator, String value, int wait);
 
@@ -30,5 +30,6 @@ public interface Selectors {
 	public void unHighlightField();
 
 	public void uploadFile(WebElement parent, By locator, String filePath, int wait);
-
+	
+	public void moveSlider(WebElement parent, By locator, String left_right, int percent, int wait);
 }

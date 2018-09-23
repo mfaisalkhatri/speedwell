@@ -26,7 +26,7 @@ public class LoginPage {
 
 	@Step
 	public void loginSite(String usrName, String password) throws IOException {
-		int wait = 200;
+		int wait = 100;
 
 		WebElement pageHeader = driver.findElement(By.cssSelector(".nav"));
 		selector.clickField(pageHeader, By.linkText("Sign in"), wait);

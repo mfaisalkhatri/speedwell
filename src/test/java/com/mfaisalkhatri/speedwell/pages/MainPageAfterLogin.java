@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import com.mfaisalkhatri.speedwell.mouseactions.MouseActionsPerform;
 import com.mfaisalkhatri.speedwell.utility.Utilities;
 
+import io.qameta.allure.Step;
+
 public class MainPageAfterLogin {
 
 	private WebDriver driver;
@@ -20,10 +22,11 @@ public class MainPageAfterLogin {
 		this.mouseact = new MouseActionsPerform(driver);
 	}
 
+	@Step
 	public void hoverOnMenu() {
 		int wait = 200;
 		WebElement parent = driver.findElement(By.cssSelector("#block_top_menu"));
-		mouseact.mousehoverAndClick(parent, By.linkText("WOMEN1"), By.linkText("Casual Dresses"), wait);
+		mouseact.mousehoverAndClick(parent, By.linkText("WOMEN"), By.linkText("Casual Dresses"), wait);
 		LOGGER.info("Mouse Hover Done");
 
 	}

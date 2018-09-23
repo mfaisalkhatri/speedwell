@@ -8,4 +8,5 @@ public interface MouseActions {
 	
 	public void mousehoverAndClick(WebElement parent, By hoverlocator, By moveTo, int wait);
 	public void dragAndDrop(WebElement parent, By moveFrom, By moveTo, int wait);
+	public void scrollPageToElememnt(WebElement parent, By locator, int wait);
 }
