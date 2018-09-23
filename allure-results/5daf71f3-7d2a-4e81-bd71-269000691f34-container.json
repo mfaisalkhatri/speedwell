@@ -1,0 +1,1 @@
+{"uuid":"5daf71f3-7d2a-4e81-bd71-269000691f34","name":"com.mfaisalkhatri.speedwell.tests.Setup.tearDown","description":"","start":1537638629734,"stop":1537638630484,"children":["e03d568e-7c90-44db-9c3b-d6818b4b0c71"],"afters":[{"name":"tearDown","status":"passed","stage":"finished","description":"","start":1537638629734,"stop":1537638630484}]}

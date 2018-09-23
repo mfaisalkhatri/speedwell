@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+
+	<Properties>
+		<Property name="LOG_PATTERN">%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %p %m%n
+		</Property>
+	</Properties>
+
+	<Appenders>
+
+		<Console name="Console" target="SYSTEM_OUT" follow="true">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+		</Console>
+
+		<RollingFile name="debugLog"
+			fileName="logs/application-debug.log"
+			filePattern="logs/application-debug-%d{yyyy-MM-dd}-%i.log">
+			<LevelRangeFilter minLevel="DEBUG" maxLevel="DEBUG"
+				onMatch="ACCEPT" onMismatch="DENY" />
+			<PatternLayout pattern="${LOG_PATTERN}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="19500KB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+
+		<RollingFile name="infoLog"
+			fileName="logs/application-info.log"
+			filePattern="logs/application-info-%d{yyyy-MM-dd}-%i.log">
+			<LevelRangeFilter minLevel="INFO" maxLevel="INFO"
+				onMatch="ACCEPT" onMismatch="DENY" />
+			<PatternLayout pattern="${LOG_PATTERN}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="19500KB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+
+		<RollingFile name="errorLog"
+			fileName="logs/application-error.log"
+			filePattern="logs/application-error-%d{yyyy-MM-dd}-%i.log">
+			<LevelRangeFilter minLevel="ERROR" maxLevel="ERROR"
+				onMatch="ACCEPT" onMismatch="DENY" />
+			<PatternLayout pattern="${LOG_PATTERN}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="19500KB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+
+
+		<Logger name="com.mfaisalkhatri.speedwell" additivity="false">
+			<AppenderRef ref="debugLog" />
+			<AppenderRef ref="infoLog" />
+			<AppenderRef ref="errorLog" />
+			<AppenderRef ref="Console" />
+		</Logger>
+
+
+		<Root level="all">
+			<AppenderRef ref="Console" />
+		</Root>
+
+	</Loggers>
+
+</Configuration>

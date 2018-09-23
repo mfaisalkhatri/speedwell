@@ -1,0 +1,6 @@
+*.class
+*.jpeg
+*.jpg
+*.png
+test-output/
+target/
