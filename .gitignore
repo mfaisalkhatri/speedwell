@@ -2,5 +2,11 @@
 *.jpeg
 *.jpg
 *.png
+.classpath
+.project
 test-output/
 target/
+allure-results/
+.allure/
+.settings/
+logs/
