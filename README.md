@@ -4,11 +4,13 @@
 
 **Getting Started**
 
+
 This page includes all the information you need to get started including setup, usage, advantages, sample test.
+
 
 **What to do when you need help?**
 * Discuss your queries by writing to me at: 
-* Mail: mohammadfaisalkhatri@gmail.com 
+* Mail: mohammadfaisalkhatri@gmail.com
 * Twitter: @mfaisal_khatri, 
 * LinkedIn: Mohammad Faisal Khatri
 
@@ -19,6 +21,5 @@ This page includes all the information you need to get started including setup, 
 * Spread the word with your network.
 * Star the project to make the project popular.
 * Stay updated with the project progress by Watching it.
-* Contribute to fix open issues, documentations or add new features. To know more, see our contributing page.
 
 **Examples and Documentation are in process, Thanks for your patience**
