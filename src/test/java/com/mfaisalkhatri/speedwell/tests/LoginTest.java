@@ -24,9 +24,9 @@ public class LoginTest extends Setup {
 		mainPage.hoverOnMenu();
 		
 		CasualDressesPage casual = new CasualDressesPage(driver);
-		casual.catalogSection();
+		//casual.addProductToCart();
+		casual.quickViewAndToCart();
 		
-		LOGGER.info("Login Test Complete");
 		
 	}
 

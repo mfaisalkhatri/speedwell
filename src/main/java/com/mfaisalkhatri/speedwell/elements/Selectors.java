@@ -32,4 +32,6 @@ public interface Selectors {
 	public void uploadFile(WebElement parent, By locator, String filePath, int wait);
 	
 	public void moveSlider(WebElement parent, By locator, String left_right, int percent, int wait);
+	
+	public void switchToiFrame (By locator, int wait);
 }

@@ -9,7 +9,9 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import com.mfaisalkhatri.speedwell.mouseactions.MouseActionsPerform;
@@ -223,5 +225,11 @@ public class ElementSelectors implements Selectors {
 		} catch (Exception e) {
 			LOGGER.error("Exception Occurred in moveSlider method " + e.getMessage());
 		}
+	}
+	
+	public void switchToiFrame(By locator, int wait) {
+		element = driver.findElement(locator);
+		WebDriverWait webWait = new WebDriverWait(driver, wait);
+		webWait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(element));
 	}
 }
