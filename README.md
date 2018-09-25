@@ -1,4 +1,5 @@
 **speedwell**
+
 **A power-packed keyword driven framework which is integrated with Allure reports and Log4j2.**
 
 **Getting Started**
@@ -19,7 +20,7 @@
 * Star the project to make the project popular.
 * Stay updated with the project progress by Watching it.
 
-**How to use this Framework: **
+**How to use this Framework:**
 01. "Config.Properties" file is used in the framework for defining the Browser Type, storing the Url of website used for tests, User Id and Password of used for login, etc.
 
 ```
@@ -59,7 +60,7 @@ public class ConfigProperties {
 05. Now you can use the "startBrowser" method directly in your tests which requires, "Browser Name" and "Website Url" as parameters.
 06. For tearDown method, "stopBrowser" will quit the browsers.
 
-**This is what Setup class looks like : **
+**This is what Setup class looks like :**
 ```
 public class Setup extends BrowserSetup {
 
@@ -80,7 +81,7 @@ public class Setup extends BrowserSetup {
 07. I have created this framework keeping "Page Object Model" in mind, so, the next step would be defining a class with locators of the page which can be used in final tests.
 Suppose, for example, Login Page is available and we need to find locators for "Username" and "Password" fields, enter their respective values, find locator of submit button and click on it. 
 
-**This is what the Login Page will look like: **
+**This is what the Login Page will look like:**
 
 ```
 public class LoginPage {
