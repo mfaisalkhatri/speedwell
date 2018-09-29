@@ -1,7 +1,5 @@
 package com.mfaisalkhatri.speedwell.tests;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
 
 import com.mfaisalkhatri.speedwell.pages.CasualDressesPage;
@@ -12,7 +10,6 @@ import com.mfaisalkhatri.speedwell.utility.ConfigProperties;
 public class LoginTest extends Setup {
 
 	
-	private static final Logger LOGGER = LogManager.getLogger(MainPageAfterLogin.class.getName ());
 	@Test
 	public void loginWebsite() throws Exception {
 		ConfigProperties config = new ConfigProperties();

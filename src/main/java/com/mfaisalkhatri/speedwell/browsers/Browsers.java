@@ -1,12 +1,10 @@
 package com.mfaisalkhatri.speedwell.browsers;
 
-import java.io.IOException;
-
 public interface Browsers {
 
-	public void startBrowser(String browserName, String website) throws IOException;
+	public void startBrowser(String browserName, String website) throws Exception;
 
-	public void stopBrowser();
+	public void stopBrowser() throws Exception;
 
-	public void loadWebsite(String website);
+	public void loadWebsite(String website) throws Exception;
 }

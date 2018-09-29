@@ -5,9 +5,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class PropertiesReader {
 	private static Properties prop;
-
+	private static final Logger LOGGER = LogManager.getLogger(Utilities.class.getName());
+	
 	static {
 		try (InputStream input = ClassLoader.class.getResourceAsStream("/config.properties")) {
 			if (input != null) {
@@ -19,12 +23,13 @@ public class PropertiesReader {
 
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println("Config File not Found!");
-			e.printStackTrace();
+			LOGGER.error("Condif file not found" + e.getMessage());
+			LOGGER.catching(e);
+			
 
 		} catch (IOException e) {
-			System.out.println("Error Occurred while reading file");
-			e.printStackTrace();
+			LOGGER.error("Error occurred while reading file" +e.getMessage());
+			LOGGER.catching(e);
 
 		}
 	}
@@ -33,7 +38,7 @@ public class PropertiesReader {
 
 		String val = prop.getProperty(key);
 		if (val == null) {
-			throw new IOException("Error while reading file..");
+			throw new IOException("Error occurred while reading file..");
 
 		}
 		return prop.getProperty(key);
