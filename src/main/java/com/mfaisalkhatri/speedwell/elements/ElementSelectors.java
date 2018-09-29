@@ -9,32 +9,30 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-
-import com.mfaisalkhatri.speedwell.mouseactions.MouseActionsPerform;
+import java.util.List;
+import com.mfaisalkhatri.speedwell.utility.ConfigProperties;
 
 import static com.mfaisalkhatri.speedwell.utility.Utilities.sleep;
-
-import java.util.List;
 
 public class ElementSelectors implements Selectors {
 
 	private WebDriver driver;
 	private WebElement element;
+	private ConfigProperties configData;
 	private static final Logger LOGGER = LogManager.getLogger(ElementSelectors.class.getName());
 
 	public ElementSelectors(WebDriver driver) {
 		this.driver = driver;
+		this.configData = new ConfigProperties();
 	}
 
-	public void fillField(WebElement parent, By locator, String value, int wait) {
+	public void fillField(WebElement parent, By locator, String value) {
 		try {
 			element = parent.findElement(locator);
 			highlightField();
-			sleep(wait);
+			sleep(Integer.parseInt(configData.getElementWait()));
 			sendKeys(value);
 			unHighlightField();
 		} catch (Exception e) {
@@ -42,11 +40,23 @@ public class ElementSelectors implements Selectors {
 		}
 	}
 
-	public void getAndCheckFieldValue(WebElement parent, By locator, String expValue, int wait) {
+	public void fillField(By locator, String value) {
+		try {
+			element = driver.findElement(locator);
+			highlightField();
+			sleep(Integer.parseInt(configData.getElementWait()));
+			sendKeys(value);
+			unHighlightField();
+		} catch (Exception e) {
+			LOGGER.error("Exception Occurred in fillField method " + e.getMessage());
+		}
+	}
+
+	public void getAndCheckFieldValue(WebElement parent, By locator, String expValue) {
 		try {
 			element = parent.findElement(locator);
 			highlightField();
-			sleep(wait);
+			sleep(Integer.parseInt(configData.getElementWait()));
 			String fieldValue = element.getText();
 			unHighlightField();
 			Assert.assertEquals(fieldValue, expValue);
@@ -55,11 +65,24 @@ public class ElementSelectors implements Selectors {
 		}
 	}
 
-	public void clickField(WebElement parent, By locator, int wait) {
+	public void getAndCheckFieldValue(By locator, String expValue) {
+		try {
+			element = driver.findElement(locator);
+			highlightField();
+			sleep(Integer.parseInt(configData.getElementWait()));
+			String fieldValue = element.getText();
+			unHighlightField();
+			Assert.assertEquals(fieldValue, expValue);
+		} catch (Exception e) {
+			LOGGER.error("Exception Occurred in getAndCheckFieldValue method " + e.getMessage());
+		}
+	}
+
+	public void clickField(WebElement parent, By locator) {
 		try {
 			element = parent.findElement(locator);
 			highlightField();
-			sleep(wait);
+			sleep(Integer.parseInt(configData.getElementWait()));
 			unHighlightField();
 			element.click();
 		} catch (Exception e) {
@@ -67,11 +90,23 @@ public class ElementSelectors implements Selectors {
 		}
 	}
 
-	public void selectField(WebElement parent, By locator, String value, int wait) {
+	public void clickField(By locator) {
+		try {
+			element = driver.findElement(locator);
+			highlightField();
+			sleep(Integer.parseInt(configData.getElementWait()));
+			unHighlightField();
+			element.click();
+		} catch (Exception e) {
+			LOGGER.error("Exception Occurred in clickField method " + e.getMessage());
+		}
+	}
+
+	public void selectField(WebElement parent, By locator, String value) {
 		try {
 			element = parent.findElement(locator);
 			highlightField();
-			sleep(wait);
+			sleep(Integer.parseInt(configData.getElementWait()));
 			Select select = new Select(element);
 			select.selectByVisibleText(value);
 			unHighlightField();
@@ -81,11 +116,38 @@ public class ElementSelectors implements Selectors {
 
 	}
 
-	public void selectField(WebElement parent, By locator, int index, int wait) {
+	public void selectField(By locator, String value) {
+		try {
+			element = driver.findElement(locator);
+			highlightField();
+			sleep(Integer.parseInt(configData.getElementWait()));
+			Select select = new Select(element);
+			select.selectByVisibleText(value);
+			unHighlightField();
+		} catch (Exception e) {
+			LOGGER.error("Exception Occurred in selectField1 method " + e.getMessage());
+		}
+
+	}
+
+	public void selectField(WebElement parent, By locator, int index) {
 		try {
 			element = parent.findElement(locator);
 			highlightField();
-			sleep(wait);
+			sleep(Integer.parseInt(configData.getElementWait()));
+			Select select = new Select(element);
+			select.selectByIndex(index);
+			unHighlightField();
+		} catch (Exception e) {
+			LOGGER.error("Exception Occurred in selectField2 method " + e.getMessage());
+		}
+	}
+
+	public void selectField(By locator, int index) {
+		try {
+			element = driver.findElement(locator);
+			highlightField();
+			sleep(Integer.parseInt(configData.getElementWait()));
 			Select select = new Select(element);
 			select.selectByIndex(index);
 			unHighlightField();
@@ -123,7 +185,7 @@ public class ElementSelectors implements Selectors {
 				char c = value.charAt(i);
 				String s = new StringBuilder().append(c).toString();
 				element.sendKeys(s);
-				sleep(25);
+				sleep(Integer.parseInt(configData.getSendKeysWait()));
 			}
 		} catch (Exception e) {
 			LOGGER.error("Exception Occurred in sendKeys method " + e.getMessage());
@@ -146,25 +208,12 @@ public class ElementSelectors implements Selectors {
 		}
 	}
 
-	public void rightClick(WebElement parent, By locator, int wait) {
-		try {
-			element = parent.findElement(locator);
-			highlightField();
-			sleep(wait);
-			Actions action = new Actions(driver);
-			action.contextClick(element).build().perform();
-			unHighlightField();
-		} catch (Exception e) {
-			LOGGER.error("Exception Occurred in rightClick method " + e.getMessage());
-		}
-	}
-
-	public void findFieldsAndClick(WebElement parent, By locator, int index, int wait) {
+	public void findFieldsAndClick(WebElement parent, By locator, int index) {
 		try {
 			List<WebElement> elements = parent.findElements(locator);
 			element = elements.get(index);
 			highlightField();
-			sleep(wait);
+			sleep(Integer.parseInt(configData.getElementWait()));
 			unHighlightField();
 			element.click();
 		} catch (Exception e) {
@@ -172,11 +221,24 @@ public class ElementSelectors implements Selectors {
 		}
 	}
 
-	public void uploadFile(WebElement parent, By locator, String filePath, int wait) {
+	public void findFieldsAndClick(By locator, int index) {
+		try {
+			List<WebElement> elements = driver.findElements(locator);
+			element = elements.get(index);
+			highlightField();
+			sleep(Integer.parseInt(configData.getElementWait()));
+			unHighlightField();
+			element.click();
+		} catch (Exception e) {
+			LOGGER.error("Exception Occurred in findFieldsAndClick method " + e.getMessage());
+		}
+	}
+
+	public void uploadFile(WebElement parent, By locator, String filePath) {
 		try {
 			element = parent.findElement(locator);
 			highlightField();
-			sleep(wait);
+			sleep(Integer.parseInt(configData.getElementWait()));
 			element.sendKeys(filePath);
 			unHighlightField();
 		} catch (Exception e) {
@@ -184,7 +246,19 @@ public class ElementSelectors implements Selectors {
 		}
 	}
 
-	public void moveSlider(WebElement parent, By locator, String left_right, int percent, int wait) {
+	public void uploadFile(By locator, String filePath) {
+		try {
+			element = driver.findElement(locator);
+			highlightField();
+			sleep(Integer.parseInt(configData.getElementWait()));
+			element.sendKeys(filePath);
+			unHighlightField();
+		} catch (Exception e) {
+			LOGGER.error("Exception Occurred in uploadFile method " + e.getMessage());
+		}
+	}
+
+	public void moveSlider(WebElement parent, By locator, String left_right, int percent) {
 		try {
 			element = parent.findElement(locator);
 			boolean sliderIsDisplayed = element.isDisplayed();
@@ -197,24 +271,25 @@ public class ElementSelectors implements Selectors {
 					int sliderWidth = sliderSize.getWidth();
 
 					int movement = sliderWidth * percent / 100;
-					sleep(wait);
+					sleep(Integer.parseInt(configData.getElementWait()));
 					Actions builder = new Actions(driver);
-					builder.moveToElement(element).click().dragAndDropBy(element, xCoord+movement, 0).perform();
+					builder.moveToElement(element).click().dragAndDropBy(element, xCoord + movement, 0).perform();
 
-				//	String slidePercent = element.getAttribute("style");
-				//	Assert.assertEquals(slidePercent, percent);
+					// String slidePercent = element.getAttribute("style");
+					// Assert.assertEquals(slidePercent, percent);
 				} else if (left_right.equalsIgnoreCase("RIGHT") && percent != 0) {
 					Dimension sliderSize = element.getSize();
 					int yCoord = element.getLocation().getY();
 					int sliderWidth = sliderSize.getWidth();
 
 					int movement = sliderWidth * percent / 100;
-					sleep(wait);
+					sleep(Integer.parseInt(configData.getElementWait()));
 					Actions builder = new Actions(driver);
-					builder.moveToElement(element).click().dragAndDropBy(element,0,yCoord-movement).build().perform();
+					builder.moveToElement(element).click().dragAndDropBy(element, 0, yCoord - movement).build()
+							.perform();
 
-					//String slidePercent = element.getAttribute("style");
-					//Assert.assertEquals(slidePercent, percent);
+					// String slidePercent = element.getAttribute("style");
+					// Assert.assertEquals(slidePercent, percent);
 				} else {
 					LOGGER.error(
 							"Either left_right value parameter  is not correct <Mention 'Right/Left'> Or Percentage is Zero.");
@@ -226,10 +301,5 @@ public class ElementSelectors implements Selectors {
 			LOGGER.error("Exception Occurred in moveSlider method " + e.getMessage());
 		}
 	}
-	
-	public void switchToiFrame(By locator, int wait) {
-		element = driver.findElement(locator);
-		WebDriverWait webWait = new WebDriverWait(driver, wait);
-		webWait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(element));
-	}
+
 }

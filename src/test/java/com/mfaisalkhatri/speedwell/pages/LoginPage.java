@@ -29,14 +29,14 @@ public class LoginPage {
 		int wait = 100;
 
 		WebElement pageHeader = driver.findElement(By.cssSelector(".nav"));
-		selector.clickField(pageHeader, By.linkText("Sign in"), wait);
+		selector.clickField(pageHeader, By.linkText("Sign in"));
 
 		WebElement signInPage = driver.findElement(By.cssSelector(".columns-container"));
-		selector.fillField(signInPage, By.id("email"), usrName, wait);
-		selector.fillField(signInPage, By.id("passwd"), password, wait);
+		selector.fillField(signInPage, By.id("email"), usrName);
+		selector.fillField(signInPage, By.id("passwd"), password);
 		utility.captureScreenShot();
 
-		selector.clickField(signInPage, By.id("SubmitLogin"), wait);
+		selector.clickField(signInPage, By.id("SubmitLogin"));
 
 		checkPageHeader();
 	}
