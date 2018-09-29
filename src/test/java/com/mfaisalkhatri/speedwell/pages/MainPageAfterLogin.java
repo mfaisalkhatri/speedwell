@@ -24,9 +24,8 @@ public class MainPageAfterLogin {
 
 	@Step
 	public void hoverOnMenu() {
-		int wait = 200;
 		WebElement parent = driver.findElement(By.cssSelector("#block_top_menu"));
-		mouseact.mousehoverAndClick(parent, By.linkText("WOMEN"), By.linkText("Casual Dresses"), wait);
+		mouseact.mousehoverAndClick(parent, By.linkText("WOMEN"), By.linkText("Casual Dresses"));
 		LOGGER.info("Mouse Hover Done");
 
 	}

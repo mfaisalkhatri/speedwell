@@ -1,4 +1,4 @@
-package com.mfaisalkhatri.speedwell.main;
+package com.mfaisalkhatri.speedwell.utility;
 
 import java.io.IOException;
 
@@ -22,6 +22,12 @@ public class ConfigProperties {
 	}
 	public String getPassword() throws IOException {
 		return prop.getKey("password");
+	}
+	public String getElementWait() throws IOException {
+		return prop.getKey("waitforelement");
+	}
+	public String getSendKeysWait() throws IOException {
+		return prop.getKey("waitforsendkeys");
 	}
 
 	

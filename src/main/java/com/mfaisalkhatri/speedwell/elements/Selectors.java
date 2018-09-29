@@ -5,23 +5,33 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 public interface Selectors {
-	public void fillField(WebElement parent, By locator, String value, int wait);
+	public void fillField(WebElement parent, By locator, String value);
 
-	public void getAndCheckFieldValue(WebElement parent, By locator, String expValue, int wait);
+	public void fillField(By locator, String value);
 
-	public void selectField(WebElement parent, By locator, String value, int wait);
+	public void getAndCheckFieldValue(WebElement parent, By locator, String expValue);
 
-	public void selectField(WebElement parent, By locator, int index, int wait);
+	public void getAndCheckFieldValue(By locator, String expValue);
 
-	public void clickField(WebElement parent, By locator, int wait);
+	public void selectField(WebElement parent, By locator, String value);
 
-	public void findFieldsAndClick(WebElement parent, By locator, int index, int wait);
+	public void selectField(By locator, String value);
+
+	public void selectField(WebElement parent, By locator, int index);
+
+	public void selectField(By locator, int index);
+
+	public void clickField(WebElement parent, By locator);
+
+	public void clickField(By locator);
+
+	public void findFieldsAndClick(WebElement parent, By locator, int index);
+
+	public void findFieldsAndClick(By locator, int index);
 
 	public void submitForm();
 
 	public void keyPress(Keys key);
-
-	public void rightClick(WebElement parent, By locator, int wait);
 
 	public void sendKeys(String value);
 
@@ -29,9 +39,10 @@ public interface Selectors {
 
 	public void unHighlightField();
 
-	public void uploadFile(WebElement parent, By locator, String filePath, int wait);
-	
-	public void moveSlider(WebElement parent, By locator, String left_right, int percent, int wait);
-	
-	public void switchToiFrame (By locator, int wait);
+	public void uploadFile(WebElement parent, By locator, String filePath);
+
+	public void uploadFile(By locator, String filePath);
+
+	public void moveSlider(WebElement parent, By locator, String left_right, int percent);
+
 }
