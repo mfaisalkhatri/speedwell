@@ -59,6 +59,7 @@ public class BrowserSetup implements Browsers {
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.manage().timeouts().setScriptTimeout(20, TimeUnit.SECONDS);
 		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+		driver.manage().deleteAllCookies();
 	}
 
 	private void setupFireFoxDriver(String website) {
@@ -73,6 +74,7 @@ public class BrowserSetup implements Browsers {
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 		driver.manage().timeouts().setScriptTimeout(20, TimeUnit.SECONDS);
+		driver.manage().deleteAllCookies();
 
 	}
 }
