@@ -25,7 +25,7 @@
 
 ```
 This is the config file extract: 
-browser=chrome //Here, browser value should be give, like "Chrome" / "Firefox".
+browser=chrome //Here, browser value should be given like "Chrome" / "Firefox".
 website=http://www.google.co.in
 username=user001
 password=pass01
@@ -65,7 +65,7 @@ public class ConfigProperties {
 public class Setup extends BrowserSetup {
 
 	@BeforeMethod
-	public void siteup() throws IOException {
+	public void siteup() throws Exception {
 		ConfigProperties config = new ConfigProperties();
 		startBrowser(config.getBrowser(), config.getWebsite());
 
@@ -98,31 +98,17 @@ public class LoginPage {
 
 	@Step
 	public void loginSite(String usrName, String password) throws IOException {
-		int wait = 100;
-
 		WebElement pageHeader = driver.findElement(By.cssSelector(".nav"));
-		selector.clickField(pageHeader, By.linkText("Sign in"), wait);
+		selector.clickField(pageHeader, By.linkText("Sign in"));
 
 		WebElement signInPage = driver.findElement(By.cssSelector(".columns-container"));
-		selector.fillField(signInPage, By.id("email"), usrName, wait);
-		selector.fillField(signInPage, By.id("passwd"), password, wait);
+		selector.fillField(signInPage, By.id("email"), usrName);
+		selector.fillField(signInPage, By.id("passwd"), password);
 		utility.captureScreenShot();
 
-		selector.clickField(signInPage, By.id("SubmitLogin"), wait);
-
-		checkPageHeader();
+		selector.clickField(signInPage, By.id("SubmitLogin"));
 	}
 
-	@Step
-	public void checkPageHeader() throws IOException {
-		WebElement pageTitle = driver.findElement(By.cssSelector("div#center_column.center_column > h1.page-heading"));
-		String actTitle = pageTitle.getText();
-		String expTitle = "MY ACCOUNT";
-		utility.captureScreenShot();
-
-		Assert.assertEquals(actTitle, expTitle);
-
-	}
 }
 ```
 08. Now, comes the Test Class, it will be like this: 
@@ -134,9 +120,6 @@ public class LoginTest extends Setup {
 		ConfigProperties config = new ConfigProperties();
 		LoginPage login = new LoginPage(driver);
 		login.loginSite(config.getUserName(), config.getPassword());
-		
-		
-		
 	}
 ```
 
