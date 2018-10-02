@@ -12,10 +12,10 @@ import com.mfaisalkhatri.speedwell.elements.ElementSelectors;
 
 public class BrowserSetup implements Browsers {
 
-	public WebDriver driver;
+	protected WebDriver driver;
 	private static final Logger LOGGER = LogManager.getLogger(ElementSelectors.class.getName());
 
-	public void startBrowser(String browserName, String website) throws Exception {
+	public void startBrowser(String browserName, String website) {
 
 		try {
 			if (browserName == null) {
@@ -36,7 +36,7 @@ public class BrowserSetup implements Browsers {
 		}
 	}
 
-	public void stopBrowser() throws Exception {
+	public void stopBrowser() {
 		try {
 			if (driver != null) {
 				LOGGER.info("Stopping Driver...");
@@ -48,7 +48,7 @@ public class BrowserSetup implements Browsers {
 		}
 	}
 
-	public void loadWebsite(String website) throws Exception {
+	public void loadWebsite(String website) {
 		try {
 			LOGGER.info("Loading Website...");
 			driver.get(website);
@@ -59,37 +59,46 @@ public class BrowserSetup implements Browsers {
 
 	}
 
-	private void setupChromeDriver(String website) throws Exception {
-		final String exe = "chromedriver.exe";
-		final String path = BrowserSetup.class.getClassLoader().getResource(exe).getPath();
+	private void setupChromeDriver(String website) {
+		try {
+			final String exe = "chromedriver.exe";
+			final String path = BrowserSetup.class.getClassLoader().getResource(exe).getPath();
 
-		System.setProperty("webdriver.chrome.driver", path);
+			System.setProperty("webdriver.chrome.driver", path);
 
-		LOGGER.info("Starting Chrome...");
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		loadWebsite(website);
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		driver.manage().timeouts().setScriptTimeout(20, TimeUnit.SECONDS);
-		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
-		driver.manage().deleteAllCookies();
-		LOGGER.info("Chrome Started...");
+			LOGGER.info("Starting Chrome...");
+			driver = new ChromeDriver();
+			driver.manage().window().maximize();
+			loadWebsite(website);
+			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			driver.manage().timeouts().setScriptTimeout(20, TimeUnit.SECONDS);
+			driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+			driver.manage().deleteAllCookies();
+			LOGGER.info("Chrome Started...");
+		} catch (Exception e) {
+			LOGGER.error("Error in setting up Chrome Driver.." + e.getMessage());
+			LOGGER.catching(e);
+		}
 	}
 
-	private void setupFireFoxDriver(String website) throws Exception {
-		final String exe = "geckodriver.exe";
-		final String path = BrowserSetup.class.getClassLoader().getResource(exe).getPath();
+	private void setupFireFoxDriver(String website) {
+		try {
+			final String exe = "geckodriver.exe";
+			final String path = BrowserSetup.class.getClassLoader().getResource(exe).getPath();
 
-		System.setProperty("webdriver.gecko.driver", path);
-		LOGGER.info("Staring Firefox...");
-		driver = new FirefoxDriver();
-		driver.manage().window().maximize();
-		loadWebsite(website);
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
-		driver.manage().timeouts().setScriptTimeout(20, TimeUnit.SECONDS);
-		driver.manage().deleteAllCookies();
-		LOGGER.info("Firefox Started...");
-
+			System.setProperty("webdriver.gecko.driver", path);
+			LOGGER.info("Staring Firefox...");
+			driver = new FirefoxDriver();
+			driver.manage().window().maximize();
+			loadWebsite(website);
+			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+			driver.manage().timeouts().setScriptTimeout(20, TimeUnit.SECONDS);
+			driver.manage().deleteAllCookies();
+			LOGGER.info("Firefox Started...");
+		} catch (Exception e) {
+			LOGGER.error("Error in Setting up Firefox driver.." + e.getMessage());
+			LOGGER.catching(e);
+		}
 	}
 }

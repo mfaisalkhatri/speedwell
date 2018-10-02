@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import com.mfaisalkhatri.speedwell.elements.ElementSelectors;
-import com.mfaisalkhatri.speedwell.elements.iFrameHandler;
+import com.mfaisalkhatri.speedwell.elements.IframeHandler;
 import com.mfaisalkhatri.speedwell.mouseactions.MouseActionsPerform;
 
 import io.qameta.allure.Step;
@@ -19,13 +19,13 @@ public class CasualDressesPage {
 	private WebDriver driver;
 	private ElementSelectors selector;
 	private MouseActionsPerform mouseact;
-	private iFrameHandler iframe;
+	private IframeHandler iframe;
 
 	public CasualDressesPage(WebDriver driver) {
 		this.driver = driver;
 		this.selector = new ElementSelectors(driver);
 		this.mouseact = new MouseActionsPerform(driver);
-		this.iframe = new iFrameHandler(driver);
+		this.iframe = new IframeHandler(driver);
 	}
 
 	@Step
@@ -46,7 +46,7 @@ public class CasualDressesPage {
 	}
 
 	@Step
-	public void addProductToCart() {
+	public void addProductToCart() throws InterruptedException {
 		WebElement hoverOnDress = driver.findElement(By.cssSelector("#center_column > ul > li"));
 		mouseact.mousehoverAndClick(hoverOnDress, By.linkText("Printed Dress"), By.linkText("Add to cart"));
 
