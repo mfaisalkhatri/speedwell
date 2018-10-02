@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.mfaisalkhatri.speedwell.elements.ElementSelectors;
+import com.mfaisalkhatri.speedwell.mouseactions.MouseActionsPerform;
 import com.mfaisalkhatri.speedwell.utility.Utilities;
 
 import io.qameta.allure.Step;
@@ -17,20 +18,20 @@ public class LoginPage {
 	private WebDriver driver;
 	private ElementSelectors selector;
 	private Utilities utility;
+	private MouseActionsPerform mouseact;
 
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
 		this.selector = new ElementSelectors(driver);
 		this.utility = new Utilities(driver);
+		this.mouseact = new MouseActionsPerform(driver);
 	}
 
 	@Step
 	public void loginSite(String usrName, String password) throws IOException {
-		int wait = 100;
 
 		WebElement pageHeader = driver.findElement(By.cssSelector(".nav"));
 		selector.clickField(pageHeader, By.linkText("Sign in"));
-
 		WebElement signInPage = driver.findElement(By.cssSelector(".columns-container"));
 		selector.fillField(signInPage, By.id("email"), usrName);
 		selector.fillField(signInPage, By.id("passwd"), password);
@@ -51,4 +52,11 @@ public class LoginPage {
 		Assert.assertEquals(actTitle, expTitle);
 
 	}
+
+	@Step
+	public void rightClickonSearch() {
+		mouseact.rightClick(By.id("search_query_top"));
+
+	}
+
 }

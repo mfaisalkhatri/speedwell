@@ -43,6 +43,6 @@ public interface Selectors {
 
 	public void uploadFile(By locator, String filePath);
 
-	public void moveSlider(WebElement parent, By locator, String left_right, int percent);
+	public void moveSlider(WebElement parent, By locator, String leftOrRight, int percent);
 
 }

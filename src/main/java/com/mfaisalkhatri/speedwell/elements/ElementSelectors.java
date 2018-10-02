@@ -21,11 +21,13 @@ public class ElementSelectors implements Selectors {
 	private WebDriver driver;
 	private WebElement element;
 	private ConfigProperties configData;
+	private JavascriptExecutor js;
 	private static final Logger LOGGER = LogManager.getLogger(ElementSelectors.class.getName());
 
 	public ElementSelectors(WebDriver driver) {
 		this.driver = driver;
 		this.configData = new ConfigProperties();
+		this.js = (JavascriptExecutor) driver;
 	}
 
 	public void fillField(WebElement parent, By locator, String value) {
@@ -158,7 +160,6 @@ public class ElementSelectors implements Selectors {
 
 	public void highlightField() {
 		try {
-			JavascriptExecutor js = (JavascriptExecutor) driver;
 			js.executeScript("arguments[0].setAttribute('style','border: 2px solid red;');", element);
 		} catch (Exception e) {
 			LOGGER.error("Exception Occurred in highlightField method " + e.getMessage());
@@ -168,7 +169,6 @@ public class ElementSelectors implements Selectors {
 
 	public void unHighlightField() {
 		try {
-			JavascriptExecutor js = (JavascriptExecutor) driver;
 			js.executeScript("arguments[0].setAttribute('style',arguments[1]);", element);
 
 		} catch (Exception e) {
@@ -258,14 +258,14 @@ public class ElementSelectors implements Selectors {
 		}
 	}
 
-	public void moveSlider(WebElement parent, By locator, String left_right, int percent) {
+	public void moveSlider(WebElement parent, By locator, String leftOrRight, int percent) {
 		try {
 			element = parent.findElement(locator);
 			boolean sliderIsDisplayed = element.isDisplayed();
 			if (!sliderIsDisplayed) {
 				LOGGER.error("Slider is not displayed");
 			} else {
-				if (left_right.equalsIgnoreCase("LEFT") && percent != 0) {
+				if (leftOrRight.equalsIgnoreCase("LEFT") && percent != 0) {
 					Dimension sliderSize = element.getSize();
 					int xCoord = element.getLocation().getX();
 					int sliderWidth = sliderSize.getWidth();
@@ -277,7 +277,7 @@ public class ElementSelectors implements Selectors {
 
 					// String slidePercent = element.getAttribute("style");
 					// Assert.assertEquals(slidePercent, percent);
-				} else if (left_right.equalsIgnoreCase("RIGHT") && percent != 0) {
+				} else if (leftOrRight.equalsIgnoreCase("RIGHT") && percent != 0) {
 					Dimension sliderSize = element.getSize();
 					int yCoord = element.getLocation().getY();
 					int sliderWidth = sliderSize.getWidth();
