@@ -1,9 +1,12 @@
 package com.mfaisalkhatri.speedwell.elements;
 
+import static com.mfaisalkhatri.speedwell.utility.Utilities.sleep;
+
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -11,10 +14,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import java.util.List;
-import com.mfaisalkhatri.speedwell.utility.ConfigProperties;
 
-import static com.mfaisalkhatri.speedwell.utility.Utilities.sleep;
+import com.mfaisalkhatri.speedwell.utility.ConfigProperties;
 
 public class ElementSelectors implements Selectors {
 
@@ -258,42 +259,30 @@ public class ElementSelectors implements Selectors {
 		}
 	}
 
-	public void moveSlider(WebElement parent, By locator, String leftOrRight, int percent) {
+	public void moveSliderFromLeft(WebElement parent, By locator, By leftPointerLocator, int percent) {
 		try {
 			element = parent.findElement(locator);
 			boolean sliderIsDisplayed = element.isDisplayed();
 			if (!sliderIsDisplayed) {
 				LOGGER.error("Slider is not displayed");
 			} else {
-				if (leftOrRight.equalsIgnoreCase("LEFT") && percent != 0) {
-					Dimension sliderSize = element.getSize();
-					int xCoord = element.getLocation().getX();
-					int sliderWidth = sliderSize.getWidth();
+				int sliderSize = element.getSize().getWidth();
+				LOGGER.info("Width of slider: " + sliderSize);
+				int movement = sliderSize * percent / 100;
 
-					int movement = sliderWidth * percent / 100;
-					sleep(Integer.parseInt(configData.getElementWait()));
-					Actions builder = new Actions(driver);
-					builder.moveToElement(element).click().dragAndDropBy(element, xCoord + movement, 0).perform();
+				WebElement leftPointer = parent.findElement(leftPointerLocator);
 
-					// String slidePercent = element.getAttribute("style");
-					// Assert.assertEquals(slidePercent, percent);
-				} else if (leftOrRight.equalsIgnoreCase("RIGHT") && percent != 0) {
-					Dimension sliderSize = element.getSize();
-					int yCoord = element.getLocation().getY();
-					int sliderWidth = sliderSize.getWidth();
+				int xCoord = leftPointer.getLocation().getX();
+				LOGGER.info(xCoord);
 
-					int movement = sliderWidth * percent / 100;
-					sleep(Integer.parseInt(configData.getElementWait()));
-					Actions builder = new Actions(driver);
-					builder.moveToElement(element).click().dragAndDropBy(element, 0, yCoord - movement).build()
-							.perform();
+				sleep(Integer.parseInt(configData.getElementWait()));
+				Actions builder = new Actions(driver);
+				builder.dragAndDropBy(leftPointer, movement, 0).perform();
 
-					// String slidePercent = element.getAttribute("style");
-					// Assert.assertEquals(slidePercent, percent);
-				} else {
-					LOGGER.error(
-							"Either left_right value parameter  is not correct <Mention 'Right/Left'> Or Percentage is Zero.");
-				}
+				int afterXCo = leftPointer.getLocation().getY();
+				LOGGER.info(afterXCo);
+				String percentmovement = leftPointer.getAttribute("style");
+				LOGGER.info("Movement is :" + percentmovement);
 
 			}
 
