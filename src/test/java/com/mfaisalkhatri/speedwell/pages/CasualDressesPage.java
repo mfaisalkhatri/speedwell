@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import com.mfaisalkhatri.speedwell.elements.ElementSelectors;
 import com.mfaisalkhatri.speedwell.elements.IframeHandler;
 import com.mfaisalkhatri.speedwell.mouseactions.MouseActionsPerform;
+import com.mfaisalkhatri.speedwell.utility.Utilities;
 
 import io.qameta.allure.Step;
 
@@ -20,29 +21,25 @@ public class CasualDressesPage {
 	private ElementSelectors selector;
 	private MouseActionsPerform mouseact;
 	private IframeHandler iframe;
+	private Utilities utility;
 
 	public CasualDressesPage(WebDriver driver) {
 		this.driver = driver;
 		this.selector = new ElementSelectors(driver);
 		this.mouseact = new MouseActionsPerform(driver);
 		this.iframe = new IframeHandler(driver);
+		this.utility = new Utilities(driver);
 	}
 
 	@Step
-	public void catalogSection() {
+	public void catalogSection() throws IOException {
 		String expHeader = "CASUAL DRESSES ";
 		WebElement parentPage = driver.findElement(By.cssSelector(".columns-container"));
 		selector.clickField(parentPage, By.id("layered_id_attribute_group_2"));
 		selector.getAndCheckFieldValue(parentPage, By.cssSelector("#center_column >h1.page-heading > span.cat-name"),
 				expHeader);
-
-		/*
-		 * WebElement slider = driver.findElement(By.cssSelector("#left_column"));
-		 * mouseact.scrollPageToElememnt(slider, By.linkText("Delivery"), wait);
-		 * selector.moveSlider(slider,By.cssSelector(".layered_slider_container"),
-		 * "Right", 10, wait);
-		 */
-
+		moveSlider();
+		utility.captureScreenShot();
 	}
 
 	@Step
@@ -123,6 +120,15 @@ public class CasualDressesPage {
 		selector.clickField(addToCartWindowRightSide, By.linkText("Proceed to checkout"));
 
 		System.out.println("quick view test complete");
+
+	}
+
+	public void moveSlider() {
+
+		WebElement slider = driver.findElement(By.cssSelector("#left_column"));
+		mouseact.scrollPageToElement(slider, By.linkText("Delivery"));
+		selector.moveSliderFromLeft(slider, By.cssSelector(".layered_slider_container"),
+				By.cssSelector(".ui-slider-handle"), 30);
 
 	}
 }
