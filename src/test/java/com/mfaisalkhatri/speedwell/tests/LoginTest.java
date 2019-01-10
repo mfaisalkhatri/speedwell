@@ -7,9 +7,16 @@ import com.mfaisalkhatri.speedwell.pages.LoginPage;
 import com.mfaisalkhatri.speedwell.pages.MainPageAfterLogin;
 import com.mfaisalkhatri.speedwell.utility.ConfigProperties;
 
+/**
+ * @author Faisal Khatri
+ *
+ */
 public class LoginTest extends Setup {
 
 	
+	/**
+	 * @throws Exception
+	 */
 	@Test
 	public void loginWebsite() throws Exception {
 		ConfigProperties config = new ConfigProperties();

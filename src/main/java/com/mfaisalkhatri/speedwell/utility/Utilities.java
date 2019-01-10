@@ -21,15 +21,25 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+/**
+ * @author Faisal Khatri
+ *
+ */
 public class Utilities implements Utility {
 
 	private WebDriver driver;
 	private static final Logger LOGGER = LogManager.getLogger(Utilities.class.getName());
 
+	/**
+	 * @param driver
+	 */
 	public Utilities(WebDriver driver) {
 		this.driver = driver;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.mfaisalkhatri.speedwell.utility.Utility#captureScreenShot()
+	 */
 	public void captureScreenShot() throws IOException {
 		try {
 			String filepath = System.getProperty("user.dir");
@@ -62,6 +72,10 @@ public class Utilities implements Utility {
 		}
 	}
 
+	/**
+	 * @param sleepValue
+	 * @throws InterruptedException
+	 */
 	public static void sleep(int sleepValue) throws InterruptedException {
 		try {
 			Thread.sleep(sleepValue);

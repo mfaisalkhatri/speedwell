@@ -7,9 +7,14 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import com.mfaisalkhatri.speedwell.elements.ElementSelectors;
 
+/**
+ * @author Faisal Khatri
+ *
+ */
 public class BrowserSetup implements Browsers {
 
 	protected WebDriver driver;
@@ -25,6 +30,9 @@ public class BrowserSetup implements Browsers {
 
 			} else if (browserName.equalsIgnoreCase("FIREFOX")) {
 				setupFireFoxDriver(website);
+
+			} else if (browserName.equalsIgnoreCase("IE")) {
+				setupIEDriver(website);
 
 			} else {
 				LOGGER.error("Please Specify Correct Browser - [FIREFOX] or [CHROME]");
@@ -98,6 +106,27 @@ public class BrowserSetup implements Browsers {
 			LOGGER.info("Firefox Started...");
 		} catch (Exception e) {
 			LOGGER.error("Error in Setting up Firefox driver.." + e.getMessage());
+			LOGGER.catching(e);
+		}
+	}
+
+	private void setupIEDriver(String website) {
+		try {
+			final String exe = "IEDriverServer.exe";
+			final String path = BrowserSetup.class.getClassLoader().getResource(exe).getPath();
+
+			System.setProperty("webdriver.ie.driver", path);
+			LOGGER.info("Staring Internet Explorer...");
+			driver = new InternetExplorerDriver();
+			driver.manage().window().maximize();
+			loadWebsite(website);
+			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+			driver.manage().timeouts().setScriptTimeout(20, TimeUnit.SECONDS);
+			driver.manage().deleteAllCookies();
+			LOGGER.info("Internet Explorer Started...");
+		} catch (Exception e) {
+			LOGGER.error("Error in Setting up IE driver.." + e.getMessage());
 			LOGGER.catching(e);
 		}
 	}
