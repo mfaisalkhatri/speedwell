@@ -25,6 +25,9 @@ public class ElementSelectors implements Selectors {
 	private JavascriptExecutor js;
 	private static final Logger LOGGER = LogManager.getLogger(ElementSelectors.class.getName());
 
+	/**
+	 * @param driver
+	 */
 	public ElementSelectors(WebDriver driver) {
 		this.driver = driver;
 		this.configData = new ConfigProperties();
