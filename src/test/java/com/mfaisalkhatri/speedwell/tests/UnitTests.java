@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 
 import com.mfaisalkhatri.speedwell.browsers.BrowserSetup;
 import com.mfaisalkhatri.speedwell.elements.ElementSelectors;
+import com.mfaisalkhatri.speedwell.elements.TableSelector;
 import com.mfaisalkhatri.speedwell.utility.ConfigProperties;
 
 /**
@@ -23,7 +24,7 @@ public class UnitTests extends BrowserSetup {
 	 * @throws InterruptedException
 	 * 
 	 */
-	@Test
+	@Test(enabled=false)
 	public void startBrowserTest() throws IOException, InterruptedException {
 
 		ConfigProperties config = new ConfigProperties();
@@ -99,5 +100,23 @@ public class UnitTests extends BrowserSetup {
 		stopBrowser();
 	}
 	
+	/**
+	 * @throws IOException 
+	 * 
+	 */
+	@Test 
+	public void tableTests () throws IOException {
+
+		ConfigProperties config = new ConfigProperties();
+		startBrowser(config.getBrowser(), config.getWebsite());
+		TableSelector table = new TableSelector(driver);
+		table.getAllRowsValueFromTable(By.cssSelector(".wf-container-main"));
+		
+		String expectedValue = "UAE";
+		table.getSpecificRowValue(By.cssSelector(".wf-container-main"), 2, 0,expectedValue);
+		
+		table.getSpecificRowValue(By.cssSelector(".wf-container-main"), 2, 1);
+		stopBrowser();
+	}
 
 }
